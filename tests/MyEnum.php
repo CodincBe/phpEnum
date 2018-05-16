@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use CodincBe\Type\Enum;
+use Codinc\Type\Enum;
 
 /**
  * Class MyEnum

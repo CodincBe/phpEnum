@@ -68,4 +68,12 @@ class EnumTest extends TestCase
         $this->assertNotSame(Example::FIRST(), MyEnum::FIRST());
         $this->assertSame(MyEnum::PERSONAL(), MyEnum::PERSONAL(), 'Make sure loading a second Enum gets populated as well');
     }
+
+    /**
+     * @test
+     */
+    public function secureConstant()
+    {
+        $this->assertEquals('secret', Example::SECRET());
+    }
 }

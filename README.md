@@ -1,10 +1,15 @@
 # phpEnum
 A simple PHP Enum implementation, as an alternative to SplEnum, allowing typesafety for values belonging to an enum.
 
+## Installation
+`composer require codinc/phpenum`
+
 ## Usage
-The abstract class supports extension by a concrete class(es) that define constants as valid values.
+The abstract class supports extension by concrete classes that define constants as valid values.
 
 ```$xslt
+use Codinc\Type\Enum;
+
 class MyEnum extends Enum
 {
     const PERSONAL = 'personal';
@@ -16,15 +21,23 @@ It is supported to call the constant as a method without added overhead. In case
 
 
 ```$xslt
+use Codinc\Type\Enum;
+
 class MyEnum extends Enum
 {
     const PERSONAL = 'personal';
     const TEAM = 'team';
     const WORLD = 'world';
+    private const COMPANY = 'company';
     
     public static function WORLD()
     {
         return self::load(self::WORLD);
+    }
+    
+    public static function COMPANY()
+    {
+        return self::load(self::COMPANY);
     }
 }
 ```

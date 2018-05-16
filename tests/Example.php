@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use CodincBe\Type\Enum;
+use Codinc\Type\Enum;
 
 /**
  * Class Example
@@ -14,6 +14,7 @@ class Example extends Enum
     public const FIRST = 'first';
     public const SECOND = 'second';
     public const THIRD = 'third';
+    private const SECRET = 'secret';
 
     /**
      * Autocompletion assistance example
@@ -23,5 +24,15 @@ class Example extends Enum
     public static function THIRD()
     {
         return self::load(self::THIRD);
+    }
+
+    /**
+     * Protecting the constant itself
+     *
+     * @return Example
+     */
+    public static function SECRET()
+    {
+        return self::load(self::SECRET);
     }
 }

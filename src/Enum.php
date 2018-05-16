@@ -1,6 +1,6 @@
 <?php
 
-namespace CodincBe\Type;
+namespace Codinc\Type;
 
 use InvalidArgumentException;
 use ReflectionClass;
@@ -9,7 +9,7 @@ use ReflectionException;
 /**
  * Class Enum
  *
- * @package CodincBe\Type
+ * @package Codinc\Type
  */
 abstract class Enum
 {
