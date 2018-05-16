@@ -12,8 +12,7 @@ class MyEnum extends Enum
 }
 ```
 
-It is supported to call the constant as a method without added overhead. In case you do desire autocompletion benefits
-you can still define the public static methods yourself and call load on the Enum.
+It is supported to call the constant as a method without added overhead. In case you do desire the benefits of autocompletion, or desire to protect your constants, you can still define the public static methods yourself and call load on the Enum.
 
 
 ```$xslt
@@ -35,7 +34,7 @@ $personal = MyEnum::PERSONAL();
 $world = MyEnum::WORLD();
 ```
 
-The Enum keeps track of the instantiated objects to ensure only one instance can be used, allowing native strict comparisson.
+The Enum keeps track of the instantiated objects to ensure only one instance can be used, allowing native strict comparison.
 
 ```$xslt
 MyEnum::PERSONAL() === MyEnum::PERSONAL(); // === true
