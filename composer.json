@@ -1,5 +1,5 @@
 {
-  "name": "codincbe/phpenum",
+  "name": "codinc/phpenum",
   "description": "A simple PHP Enum implementation, as an alternative to SplEnum",
   "keywords": ["enum", "php"],
   "homepage": "http://www.codinc.be",
