@@ -1,0 +1,109 @@
+<?php
+
+namespace CodincBe\Type;
+
+use InvalidArgumentException;
+use ReflectionClass;
+use ReflectionException;
+
+/**
+ * Class Enum
+ *
+ * @package CodincBe\Type
+ */
+abstract class Enum
+{
+    private static $instances = [];
+    private static $types = [];
+
+    /**
+     * @var string
+     */
+    private $value;
+
+    /**
+     * Supporting use of CallingClass::CONSTANT()
+     *
+     * @param string $name
+     * @param array $arguments
+     * @return static
+     */
+    public static function __callStatic($name, $arguments)
+    {
+        $supported = &self::all();
+        $value = isset($supported[$name]) ? $supported[$name] : $name;
+        return static::load($value);
+    }
+
+    /**
+     * @return array
+     */
+    public static function all(): array
+    {
+        if (!isset(self::$types[static::class])) {
+            self::$types[static::class] = [];
+            try {
+                $class = new ReflectionClass(static::class);
+                foreach ($class->getConstants() as $constant => $value) {
+                    self::$types[static::class][$constant] = $value;
+                }
+            } catch (ReflectionException $e) {
+                // Ignore
+            }
+        }
+        return self::$types[static::class];
+    }
+
+    /**
+     * Ensure only one instance is loaded and kept in memory (allowing strict object comparison)
+     *
+     * @param string $value
+     * @return static
+     */
+    public static function load(string $value)
+    {
+        if (!isset(self::$instances[static::class][$value])) {
+            self::$instances[static::class][$value] = new static($value);
+        }
+        return self::$instances[static::class][$value];
+    }
+
+    /**
+     * @param string $value
+     * @return bool
+     */
+    public static function isSupported(string $value): bool
+    {
+        return in_array($value, self::all());
+    }
+
+    /**
+     * Enum constructor.
+     *
+     * @param string $constant
+     */
+    final protected function __construct(string $value)
+    {
+        if (!self::isSupported($value)) {
+            throw new InvalidArgumentException("$value is not supported by " . static::class);
+        }
+        $this->value = $value;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param Enum $other
+     * @return bool
+     */
+    public function equals(Enum $other): bool
+    {
+        return $this === $other;
+    }
+}
