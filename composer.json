@@ -1,7 +1,7 @@
 {
   "name": "codinc/phpenum",
   "description": "A simple PHP Enum implementation, as an alternative to SplEnum",
-  "keywords": ["enum", "php"],
+  "keywords": ["enum", "php", "strict", "typesafety"],
   "homepage": "http://www.codinc.be",
   "type": "library",
   "license": "Apache-2.0",
