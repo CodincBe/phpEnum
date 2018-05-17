@@ -3,6 +3,7 @@
 namespace Codinc\Type;
 
 use InvalidArgumentException;
+use LogicException;
 use ReflectionClass;
 use ReflectionException;
 
@@ -13,7 +14,14 @@ use ReflectionException;
  */
 abstract class Enum
 {
+    /**
+     * @var Enum[][]
+     */
     private static $instances = [];
+
+    /**
+     * @var string[][]
+     */
     private static $types = [];
 
     /**
@@ -28,11 +36,13 @@ abstract class Enum
      * @param array $arguments
      * @return static
      */
-    public static function __callStatic($name, $arguments)
+    public static function __callStatic($name, $arguments): Enum
     {
         $supported = &self::all();
-        $value = isset($supported[$name]) ? $supported[$name] : $name;
-        return static::load($value);
+        if (!isset($supported[$name])) {
+            throw new InvalidArgumentException("The type $name is not found and cannot be instantiated");
+        }
+        return self::load($supported[$name]);
     }
 
     /**
@@ -60,7 +70,7 @@ abstract class Enum
      * @param string $value
      * @return static
      */
-    public static function load(string $value)
+    public static function load(string $value): Enum
     {
         if (!isset(self::$instances[static::class][$value])) {
             self::$instances[static::class][$value] = new static($value);
@@ -80,7 +90,7 @@ abstract class Enum
     /**
      * Enum constructor.
      *
-     * @param string $constant
+     * @param string $value
      */
     final protected function __construct(string $value)
     {
@@ -96,6 +106,14 @@ abstract class Enum
     public function __toString(): string
     {
         return $this->value;
+    }
+
+    /**
+     * Prevent cloning the object
+     */
+    public function __clone()
+    {
+        throw new LogicException('It is not allowed to clone an Enum');
     }
 
     /**

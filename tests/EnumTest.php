@@ -76,4 +76,13 @@ class EnumTest extends TestCase
     {
         $this->assertEquals('secret', Example::SECRET());
     }
+
+    /**
+     * @test
+     */
+    public function constantValueOverlap()
+    {
+        $this->assertNotSame(MyEnum::BAR(), MyEnum::load('BAR'));
+        $this->assertSame(MyEnum::BAR(), MyEnum::load('FOO'));
+    }
 }

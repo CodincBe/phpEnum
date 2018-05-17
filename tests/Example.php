@@ -8,6 +8,8 @@ use Codinc\Type\Enum;
  * Class Example
  *
  * @package Tests
+ *
+ * @method static Example SECOND()
  */
 class Example extends Enum
 {

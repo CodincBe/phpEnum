@@ -13,4 +13,6 @@ class MyEnum extends Enum
 {
     public const FIRST = 'first';
     public const PERSONAL = 'personal';
+    public const FOO = 'BAR';
+    public const BAR = 'FOO';
 }
